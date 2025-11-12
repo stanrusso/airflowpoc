@@ -1,6 +1,6 @@
 from airflow.decorators import task, dag
-from airflow.operators.dummy import DummyOperator
-from airflow.operators.bash import BashOperator
+from airflow.providers.standard.operators.empty import EmptyOperator
+from airflow.providers.standard.operators.bash import BashOperator
 from datetime import datetime
 import pandas as pd
 
@@ -19,7 +19,7 @@ default_args = {
 def titanic_processing():
 
     # Task Definition
-    start = DummyOperator(task_id='start')
+    start = EmptyOperator(task_id='start')
 
     @task
     def first_task():
@@ -27,7 +27,7 @@ def titanic_processing():
 
     @task
     def read_data():
-        df = pd.read_csv("https://raw.githubusercontent.com/donhighmsft/airflowexamples/main/dag_data/titantic.csv", sep=";")
+        df = pd.read_csv("https://raw.githubusercontent.com/stanrusso/airflowpoc/main/dag_data/titantic.csv", sep=";")
         survivors = df.loc[df.Survived == 1, "Survived"].sum()
         survivors_sex = df.loc[df.Survived == 1, ["Survived", "Sex"]].groupby("Sex").count()
         return {
@@ -48,7 +48,7 @@ def titanic_processing():
         bash_command='echo "This is the last task performed with Bash."',
     )
 
-    end = DummyOperator(task_id='end')
+    end = EmptyOperator(task_id='end')
 
     # Orchestration
     first = first_task()
