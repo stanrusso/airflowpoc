@@ -27,7 +27,7 @@ def titanic_processing():
 
     @task
     def read_data():
-        df = pd.read_csv("https://raw.githubusercontent.com/stanrusso/airflowpoc/main/dag_data/titantic.csv", sep=";")
+        df = pd.read_csv("https://raw.githubusercontent.com/stanrusso/airflowpoc/main/dag_data/titanic.csv", sep=";")
         survivors = df.loc[df.Survived == 1, "Survived"].sum()
         survivors_sex = df.loc[df.Survived == 1, ["Survived", "Sex"]].groupby("Sex").count()
         return {
