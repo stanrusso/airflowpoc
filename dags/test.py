@@ -21,8 +21,12 @@ default_args = {
         tags=['Titanic']
 )
 def main():
+    from tasks.sample import sample_task
 
     start = EmptyOperator(task_id="start")
+
+    sample = sample_task()
+
 
     hello = BashOperator(
         task_id="say_hello",
@@ -32,7 +36,7 @@ def main():
     end = EmptyOperator(task_id="end")
 
     # Task flow
-    start >> hello >> end
+    start >> hello >> sample >> end
 
 
 execution = main()
