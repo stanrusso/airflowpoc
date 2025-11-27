@@ -1,24 +1,25 @@
 from datetime import datetime
-from airflow import DAG
+from airflow.decorators import task, dag
 from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.standard.operators.empty import EmptyOperator
 
 # Default settings for the DAG
-default_args = {
-    "owner": "airflow",
-    "start_date": datetime(2024, 1, 1),
-    "retries": 0,
-}
 
-# Define the DAG
-with DAG(
-    dag_id="hello_world_dag",
-    default_args=default_args,
-    schedule="@once",  # runs once when triggered
-    catchup=False,
-    description="A simple Hello World DAG",
-    tags=["example"],
-) as dag:
+
+default_args = {
+    'owner': 'Stan',
+    'start_date': datetime(2024, 2, 12),
+    'retries': 1,
+    'random_thing': '7'
+}
+@dag(
+        default_args=default_args, 
+        schedule="@once", 
+        description="Simple Pipeline with Titanic", 
+        catchup=False, 
+        tags=['Titanic']
+)
+def main():
 
     start = EmptyOperator(task_id="start")
 
@@ -31,3 +32,6 @@ with DAG(
 
     # Task flow
     start >> hello >> end
+
+
+execution = main()
