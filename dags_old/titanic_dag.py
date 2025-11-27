@@ -2,7 +2,7 @@ from airflow.decorators import task, dag
 from airflow.providers.standard.operators.empty import EmptyOperator
 from airflow.providers.standard.operators.bash import BashOperator
 from datetime import datetime
-import pandas as pd
+
 
 default_args = {
     'owner': 'Don',
@@ -17,6 +17,7 @@ default_args = {
         tags=['Titanic']
 )
 def titanic_processing():
+    import pandas as pd
 
     # Task Definition
     start = EmptyOperator(task_id='start')
