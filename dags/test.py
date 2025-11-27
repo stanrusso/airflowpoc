@@ -1,5 +1,6 @@
 from datetime import datetime
 from airflow.decorators import task, dag
+from airflow import DAG
 from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.standard.operators.empty import EmptyOperator
 
@@ -17,8 +18,7 @@ default_args = {
         schedule="@once", 
         description="Simple Pipeline with Titanic", 
         catchup=False, 
-        tags=['Titanic'],
-        thing='7'
+        tags=['Titanic']
 )
 def main():
 
