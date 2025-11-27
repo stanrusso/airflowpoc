@@ -11,6 +11,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 # Environment Settings (loaded from environment variables)
 # =============================================================================
 
+
 class Config(BaseSettings):
     model_config = SettingsConfigDict(
         case_sensitive=False,
