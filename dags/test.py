@@ -17,7 +17,8 @@ default_args = {
         schedule="@once", 
         description="Simple Pipeline with Titanic", 
         catchup=False, 
-        tags=['Titanic']
+        tags=['Titanic'],
+        thing='7'
 )
 def main():
 
