@@ -2,7 +2,7 @@ from airflow.decorators import task, dag
 from airflow.providers.standard.operators.empty import EmptyOperator
 from airflow.providers.standard.operators.bash import BashOperator
 from datetime import datetime
-import pandas as pd
+
 
 default_args = {
     'owner': 'Don',
@@ -17,7 +17,7 @@ default_args = {
         tags=['Titanic']
 )
 def titanic_processing():
-
+    
     # Task Definition
     start = EmptyOperator(task_id='start')
 
@@ -27,6 +27,7 @@ def titanic_processing():
 
     @task
     def read_data():
+        import pandas as pd
         df = pd.read_csv("https://raw.githubusercontent.com/stanrusso/airflowpoc/main/dag_data/data.csv", sep=";")
         survivors = df.loc[df.Survived == 1, "Survived"].sum()
         survivors_sex = df.loc[df.Survived == 1, ["Survived", "Sex"]].groupby("Sex").count()
