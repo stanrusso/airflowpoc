@@ -27,14 +27,15 @@ def titanic_processing():
 
     @task
     def read_data():
-        import pandas as pd
-        df = pd.read_csv("https://raw.githubusercontent.com/stanrusso/airflowpoc/main/dag_data/data.csv", sep=";")
-        survivors = df.loc[df.Survived == 1, "Survived"].sum()
-        survivors_sex = df.loc[df.Survived == 1, ["Survived", "Sex"]].groupby("Sex").count()
-        return {
-            'survivors_count': survivors,
-            'survivors_sex': survivors_sex
-        }
+        # import pandas as pd
+        # df = pd.read_csv("https://raw.githubusercontent.com/stanrusso/airflowpoc/main/dag_data/data.csv", sep=";")
+        # survivors = df.loc[df.Survived == 1, "Survived"].sum()
+        # survivors_sex = df.loc[df.Survived == 1, ["Survived", "Sex"]].groupby("Sex").count()
+        # return {
+        #     'survivors_count': survivors,
+        #     'survivors_sex': survivors_sex
+        # }
+        print('reading data')
 
     @task
     def print_survivors(source):
